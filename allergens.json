@@ -1,37 +1,38 @@
-[{
+[
+  {
     "id": 1,
     "name": "gluten"
-    }, 
-    {
+  },
+  {
     "id": 2,
     "name": "milk"
-    }, 
-    {
+  },
+  {
     "id": 3,
     "name": "eggs"
-    }, 
-    {
+  },
+  {
     "id": 4,
     "name": "fish"
-    }, 
-    {
+  },
+  {
     "id": 5,
     "name": "crustacean shellfish"
-    }, 
-    {
+  },
+  {
     "id": 6,
     "name": "tree nuts"
-    }, 
-    {
+  },
+  {
     "id": 7,
     "name": "peanuts"
-    }, 
-    {
+  },
+  {
     "id": 8,
     "name": "wheat"
-    }, 
-    {
+  },
+  {
     "id": 9,
     "name": "soybeans"
-    }
+  }
 ]
