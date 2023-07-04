@@ -1,12 +1,9 @@
-// const filePath = require("../../path.js");
-// console.log(filePath);
 const rootElement = document.getElementById("root");
 let localPizzaData = [];
 let checkedAllergens = [];
 let pizzaOrders = [];
 let date = new Date();
 let orderObject = {
-	id: "",
 	pizzas: [],
 	date: {
 		year: date.getFullYear(),
@@ -40,27 +37,28 @@ function inputEvent(event) {
     } else {
         checkedAllergens = checkedAllergens.filter((checkedAll) => checkedAll !== event.target.value);
     }
-    // remove already displayed pizzas
-    document.querySelectorAll(".pizzaDetails").forEach(displayedPizza => displayedPizza.remove());
 
+    console.log("localPizzaData", localPizzaData);
     //insert pizza by allergens
     for (const pizza of localPizzaData) {
-        let isWithoutAllergens = true;
+        let hasAllergens = false;
         for (const checkedAllergen of checkedAllergens) {
             if (pizza.allergens.includes(checkedAllergen)) {
-                isWithoutAllergens = false;
+                hasAllergens = true;
             }
         }
-        if (isWithoutAllergens) {
-            rootElement.insertAdjacentHTML("beforeend", pizzaDiv(pizza));
-        }     
+        if (hasAllergens) {
+            document.querySelector(`#pizza-${pizza.id}`).setAttribute("hidden", true);
+        } else {
+            document.querySelector(`#pizza-${pizza.id}`).removeAttribute("hidden");
+        }    
     }
 }
 
 function pizzaDiv({id, name, ingredients, price, allergens}) {
     const ingredientsDD = ingredients.map((ingredient) => `<dd>${ingredient}</dd>`).join('');
     const allergensDD = allergens.map((allergen) => `<dd>${allergen}</dd>`).join('');
-    return `<div class="pizzaDetails">
+    return `<div class="pizzaDetails" id=pizza-${id}>
                 <dl>
                     <dt>Id</dt>
                     <dd>${id}</dd>
@@ -74,15 +72,15 @@ function pizzaDiv({id, name, ingredients, price, allergens}) {
                     ${allergensDD}
                 </dl>
                 <div class="amount-order">
-                    <input type="number" placeholder="amount">
+                    <input type="number" placeholder="amount" id=amount-${id}>
                     <button class="add-button" id=${id}>Add to order</button>
+                    <button class="remove-button" id=${id}>Remove from order</button>
                 </div>
             </div>`
 }
 
 async function fetchPizza() {
     const pizzaFile = await fetch("/api/pizza");
-    console.dir(pizzaFile);
     const pizzaData = await pizzaFile.json();
     return pizzaData;
 }
@@ -93,12 +91,49 @@ async function fetchAllergens() {
     return allergensData;
 }
 
+function removeFromOrder(event) {
+    for (let i = 0; i < pizzaOrders.length; i++) {
+        if (pizzaOrders[i].id === Number(event.target.id)) {
+            pizzaOrders.splice(i, 1);
+            break;
+        } 
+    }
+
+    for (let i = 0; i < orderObject.pizzas.length; i++) {
+        if (orderObject.pizzas[i].id === Number(event.target.id)) {
+            if (orderObject.pizzas[i].amount <= 1) {
+                orderObject.pizzas.splice(i, 1);
+            } else {
+                orderObject.pizzas[i].amount--;
+            }
+        }
+    }
+
+    console.log(orderObject.pizzas);
+    console.log(pizzaOrders);
+
+    document.querySelector("form")?.remove();
+    rootElement.insertAdjacentHTML("afterbegin", createForm());
+    if (orderObject.pizzas.length === 0) {
+        document.querySelector("form").setAttribute("hidden", true);
+    }
+}
+
 function addToOrder(event){
+    const amountValue = document.querySelector(`input#amount-${event.target.id}`).value;
+    console.log(amountValue);
     let idFunc = Number(event.target.id);
     let pizzasInObject = orderObject.pizzas;
     let isAlreadyInList = false;
 
-    pizzaOrders.push(localPizzaData[idFunc - 1])
+    if (Number(amountValue) > 0) {
+        for (let i = 0; i < amountValue; i++) {
+            pizzaOrders.push(localPizzaData[idFunc - 1])
+        }
+    } else {
+        pizzaOrders.push(localPizzaData[idFunc - 1])
+    }
+    
 
     // console.log("pizza ordersa array", pizzaOrders);
     // console.log("orders object", orderObject);
@@ -107,31 +142,111 @@ function addToOrder(event){
     for (let i = 0; i < pizzasInObject.length; i++) {
         if(pizzasInObject[i].id === idFunc){
             isAlreadyInList = true;
-            pizzasInObject[i].amount++;
-            break;
+            if (amountValue === "") {
+                pizzasInObject[i].amount++;
+                break;
+            } else {
+                pizzasInObject[i].amount += Number(amountValue);
+                break;
+            }
+            
         }
     }
 
-    if(!isAlreadyInList){
+    if(!isAlreadyInList && amountValue === ""){
         pizzasInObject.push(
             {
             id: idFunc,
             amount: 1
             }
         )
-    }   
+    } else if (!isAlreadyInList && amountValue !== ""){
+        pizzasInObject.push(
+            {
+            id: idFunc,
+            amount: Number(amountValue)
+            }
+        )
+    }
     // console.log("orderObject.pizzas", pizzasInObject);
     // console.log(orderObject);
-    if(pizzaOrders.length > 0){
-        form.removeAttribute("hidden"); 
-    }
+    // if(pizzaOrders.length > 0){
+    //     form.removeAttribute("hidden"); 
+    // }
+
+    document.querySelector("form")?.remove();
+    rootElement.insertAdjacentHTML("afterbegin", createForm());
+    document.querySelector("form").addEventListener("submit", handleSubmit);
 
 }
 
 async function getBasket(){
-    let orders = await fetch("/api/order");
+    let orders = await fetch("http://localhost:5500/api/order");
     let ordersData = await orders.json();
     console.log(ordersData);
+}
+
+function handleSubmit(event) {
+    event.preventDefault();
+    console.log("inside handleSubmit");
+    const typedName = event.target[0].value;
+    const typedEmail = event.target[1].value;
+    const typedCity = event.target[2].value;
+    const typedStreet = event.target[3].value;
+
+    orderObject.customer.name = typedName;
+    orderObject.customer.email = typedEmail;
+    orderObject.customer.address.city = typedCity;
+    orderObject.customer.address.street = typedStreet;
+
+    console.log(orderObject);
+
+    fetch("http://localhost:5500/api/order", {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(orderObject)
+    })
+        .then(res => res.json())
+        .then(data => console.log("data", data))
+        .catch(err => console.log(err))
+}
+
+function createForm() {
+    const orderedPizzas = orderObject.pizzas.map((pizza) => {
+        const pizzaFound = pizzaOrders.find(pizzaObj => pizzaObj.id === pizza.id);
+        return {
+            pizzaName: pizzaFound.name,
+            pizzaAmount: pizza.amount
+        };
+    });
+
+    console.log(orderedPizzas);
+
+    return `<form>
+                <h2>Pizzas:</h2>
+                ${orderedPizzas.map(pizza => 
+                    `<p>${pizza.pizzaName}</p>
+                     <p>${pizza.pizzaAmount}</p>`)}
+                <label>Name:
+                    <input type="text" required>
+                </label>
+                <br><br>
+                <label>Email:
+                    <input type="email" required>
+                </label>
+                <br><br>
+                <label>City:
+                    <input type="text" required>
+                </label>
+                <br><br>
+                <label>Street:
+                    <input type="text" required>
+                </label>
+                <br><br>
+                <button>Submit</button>
+            </form>`;
 }
 
 async function main() {
@@ -173,8 +288,10 @@ async function main() {
     })
 
     const addToOrderButtons = document.getElementsByClassName("add-button");
-
     [...addToOrderButtons].forEach(button => button.addEventListener("click", addToOrder));
+
+    const removeFromOrderButtons = document.getElementsByClassName("remove-button");
+    [...removeFromOrderButtons].forEach(button => button.addEventListener("click", removeFromOrder));
 }
     
 main();

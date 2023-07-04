@@ -4,11 +4,17 @@ const express = require('express')
 const { error } = require('console')
 const app = express()
 const port = 5500
+const fileReaderAsync = require('./fileReader');
+const fileWriterAsync = require('./fileWriter');
 
+const path = require('path');
+const orderPath = path.join(`${__dirname}/orders.json`);
+
+app.use(express.json());
 // that is the line for integrate script.js in html
-app.use(express.static("./frontend"));
+app.use(express.static(`./frontend`));
 // app.use("frontend", express.static(__dirname + '/frontend/public'));
-app.use("/pizza", express.static("./frontend"));
+app.use("/pizza", express.static(`${__dirname}/frontend`));
 
 app.get("/", (req, res)=> {
     res.sendFile(`${__dirname}/frontend/index.html`);
@@ -33,8 +39,12 @@ app.get("/api/order", (req, res)=> {
     res.sendFile(`${__dirname}/orders.json`);
 })
 
-app.post("/api/order", (req, res)=> {
-    
+app.post("/api/order", async (req, res)=> {
+    const fileData = await fileReaderAsync(orderPath);
+    const orders = JSON.parse(fileData);
+    orders.orderList.push(req.body);
+    fileWriterAsync(orderPath, JSON.stringify(orders));
+    res.send(orders);    
 })
 
 app.listen(port, ()=> {
