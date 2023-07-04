@@ -18,7 +18,7 @@
     "price": 2900,
     "allergens": [1, 7]
   },
-  {
+  { 
     "id": 3,
     "name": "Hawaiian",
     "ingredients": ["ham", "pineapple"],

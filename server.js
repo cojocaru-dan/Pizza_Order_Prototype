@@ -17,7 +17,7 @@ app.get("/", (req, res)=> {
 app.get("/api/pizza", (req, res)=> {
     res.sendFile(`${__dirname}/pizza.json`);
 })
-
+ 
 app.get("/api/allergen", (req, res)=> {
     res.sendFile(`${__dirname}/allergens.json`);
 })
@@ -27,6 +27,14 @@ app.get("/pizza/list", (req, res) => {
     // console.log(pizzaData);
     // res.json(pizzaData);
     res.sendFile(`${__dirname}/frontend/pizzalist.html`);
+})
+
+app.get("/api/order", (req, res)=> {
+    res.sendFile(`${__dirname}/orders.json`);
+})
+
+app.post("/api/order", (req, res)=> {
+    
 })
 
 app.listen(port, ()=> {
