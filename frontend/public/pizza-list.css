@@ -1,49 +1,154 @@
+*,
+*::before,
+*::after {
+  font-family: "Open Sans", sans-serif;
+}
+
 html {
-    margin: 0px;
-    height: 100%;
-    width: 100%;
+  margin: 0px;
+  height: 100%;
+  width: 100%;
 }
 
 body {
-    margin: 0px;
-    min-height: 100%;
-    width: 100%;
-    background: url("../images/background1.jpg") no-repeat;
-    background-size: cover;
+  margin: 0px;
+  min-height: 100%;
+  width: 100%;
+  background: url("../images/background1.jpg") no-repeat local;
+  background-size: cover;
 }
 
-#Home, #Menu, #Basket {
-    width: 200px;
-    height: 100%;
+#Home,
+#Menu,
+#Basket {
+  width: 200px;
+  height: 100%;
 }
 
 #Basket > a > img {
-    width: 80px;
-    height: 70px;
-    object-fit: contain;
+  width: 80px;
+  height: 70px;
+  object-fit: contain;
 }
 
 .navbar {
-    display: flex;
-    width: 100%;
-    height: 80px;
-    justify-content: center;
-    gap: 150px;
-    background-color: black;
+  display: flex;
+  width: 100%;
+  height: 80px;
+  justify-content: center;
+  gap: 150px;
+  background-color: black;
 }
 
 .allergens {
-    display: flex;
-    width: 100%;
-    height: 50px;
-    justify-content: center;
-    gap: 20px;
-    background: hsla(240, 42%, 36%, 0.529);
-    margin-top: 60px;
-    color: white;
-    font-weight: 300;
+  display: flex;
+  width: 100%;
+  height: 50px;
+  justify-content: center;
+  gap: 20px;
+  background: hsla(240, 42%, 36%, 0.529);
+  margin-top: 60px;
+  color: white;
+  font-weight: 300;
 }
 
 .allergens > label {
-    margin-top: 15px;
+  margin-top: 15px;
+}
+
+.pizzaDetails > dl {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  /* position: absolute; */
+  bottom: 8px;
+  width: 100%;
+  /* text-align: center; */
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 3fr));
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.pizzaDetails {
+  --padding: 1rem;
+  background: white;
+  border: 1px solid #777;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+    min-height: 1fr;
+}
+
+.card-header {
+  font-size: 1.5rem;
+  padding: var(--padding);
+  padding-bottom: 0;
+  margin-bottom: 0.5rem;
+}
+
+.card-image {
+  padding: 0;
+  overflow: hidden;
+}
+
+.card-image {
+  display: block;
+  width: 100%;
+  max-height: 200px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center;
+  transition: 200ms transform ease-in-out;
+}
+
+.pizzaDetails:hover > .card-image {
+  transform: scale(1.025);
+}
+
+.card-body {
+  font-size: 0.9rem;
+  padding: 0 var(--padding);
+}
+
+.card-footer {
+  margin-top: 1rem;
+  padding: var(--padding);
+  padding-top: 0;
+}
+
+.add-button,
+.remove-button {
+  --color: hsl(200, 50%, 50%);
+  background: var(--color);
+  color: white;
+  border: none;
+  font-size: 1rem;
+  padding: 0.5em 0.75em;
+  border-radius: 0.25em;
+  cursor: pointer;
+  margin-left: 0.25rem;
+}
+
+.add-button:hover,
+.add-button:focus {
+  background: hsl(200, 50%, 60%);
+}
+
+.remove-button {
+  background: none;
+  border: 1px solid var(--color);
+  color: var(--color);
+}
+
+.remove-button:hover,
+.remove-button:focus {
+  background: hsl(200, 50%, 90%);
+}
+
+form {
+    background-color: pink;
 }

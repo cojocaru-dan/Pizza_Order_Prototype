@@ -1,5 +1,9 @@
 const rootElement = document.getElementById("root");
 const allergensDiv = document.querySelector(".allergens");
+const cards = document.querySelector(".cards");
+const prevButton = document.querySelector("#prev");
+const nextButton = document.querySelector("#next");
+
 let localPizzaData = [];
 let checkedAllergens = [];
 let pizzaOrders = [];
@@ -56,30 +60,29 @@ function inputEvent(event) {
     }
 }
 
-function pizzaDiv({id, name, ingredients, price, allergens}) {
+function pizzaDiv({id, image, name, ingredients, price, allergens}) {
     const ingredientsDD = ingredients.map((ingredient) => `<dd>${ingredient}</dd>`).join('');
     const allergensDD = allergens.map((allergen) => `<dd>${allergen}</dd>`).join('');
+    console.log(image);
     return `<div class="pizzaDetails" id=pizza-${id}>
-                <dl>
-                    <dt>Id</dt>
-                    <dd>${id}</dd>
-                    <dt>Name</dt>
-                    <dd>${name}</dd>
-                    <dt>Ingredients</dt>
+                <div class="card-header">
+                    <img src="${image}" class="card-image"/>
+                    ${name}
+                </div>
+                <div class="card-body">
                     ${ingredientsDD}
-                    <dt>Price</dt>
-                    <dd>${price}</dd>
-                    <dt>Allergens</dt>
-                    ${allergensDD}
-                </dl>
-                <div class="amount-order">
+                    Price: ${price}
+                    Allergens: ${allergensDD}
+                </div>
+                <div class="card-footer">
                     <input type="number" placeholder="amount" id=amount-${id}>
                     <button class="add-button" id=${id}>Add to order</button>
                     <button class="remove-button" id=${id}>Remove from order</button>
                 </div>
             </div>`
-}
 
+}
+    
 async function fetchPizza() {
     const pizzaFile = await fetch("/api/pizza");
     const pizzaData = await pizzaFile.json();
@@ -285,7 +288,7 @@ async function main() {
     localPizzaData = pizzaData;
     // insert all pizza to 
     pizzaData.map((pizza) => {
-        rootElement.insertAdjacentHTML("beforeend", pizzaDiv(pizza));
+        cards.insertAdjacentHTML("beforeend", pizzaDiv(pizza));
     })
 
     const addToOrderButtons = document.getElementsByClassName("add-button");
