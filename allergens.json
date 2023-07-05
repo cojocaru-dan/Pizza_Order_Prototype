@@ -1,38 +1,38 @@
 [
   {
     "id": 1,
-    "name": "gluten"
+    "name": "Gluten"
   },
   {
     "id": 2,
-    "name": "milk"
+    "name": "Milk"
   },
   {
     "id": 3,
-    "name": "eggs"
+    "name": "Eggs"
   },
   {
     "id": 4,
-    "name": "fish"
+    "name": "Fish"
   },
   {
     "id": 5,
-    "name": "crustacean shellfish"
+    "name": "Crustacean shellfish"
   },
   {
     "id": 6,
-    "name": "tree nuts"
+    "name": "Tree nuts"
   },
   {
     "id": 7,
-    "name": "peanuts"
+    "name": "Peanuts"
   },
   {
     "id": 8,
-    "name": "wheat"
+    "name": "Wheat"
   },
   {
     "id": 9,
-    "name": "soybeans"
+    "name": "Soybeans"
   }
 ]

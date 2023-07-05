@@ -6,34 +6,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
         <script type="module" src="./public/pizzalist.js"></script>
+        <link rel="stylesheet" href="./public/pizza-list.css">
     </head>
 <body>
     <div id="root">
-        <!-- <div id="1">
-            <dl>
-                <dt>Id</dt>
-                <dd>1</dd>
-                <dt>Name</dt>
-                <dd>Marinara</dd>
-                <dt>Ingredients</dt>
-                <dd>San Marzano tomato sauce</dd>
-                <dd>garlic</dd>
-                <dd>oregano</dd>
-                <dd>olive oil</dd>
-                <dt>Price</dt>
-                <dd>3200</dd>
-                <dt>Allergens</dt>
-                <dd>gluten</dd>
-                <dd>eggs</dd>
-                <dd>soybeans</dd>
-            </dl>
-        </div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div> -->
-    </div>
+      
+        <nav class="navbar">
+          <button id="Home"><a href="http://localhost:5500/">Home</a></button>
+          <button id="Menu">
+            <a href="http://localhost:5500/pizza/list">Menu</a>
+          </button>
+          <button id="Basket">
+            <a href="http://localhost:5500/api/order"><img src="./images/basket2.png"/></a>
+          </button>
+        </nav>
+
+        <div class="allergens"></div>
+
+      </div>
 </body>
 </html>

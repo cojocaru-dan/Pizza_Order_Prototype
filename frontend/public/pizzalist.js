@@ -1,4 +1,5 @@
 const rootElement = document.getElementById("root");
+const allergensDiv = document.querySelector(".allergens");
 let localPizzaData = [];
 let checkedAllergens = [];
 let pizzaOrders = [];
@@ -109,8 +110,8 @@ function removeFromOrder(event) {
         }
     }
 
-    console.log(orderObject.pizzas);
-    console.log(pizzaOrders);
+    // console.log(orderObject.pizzas);
+    // console.log(pizzaOrders);
 
     document.querySelector("form")?.remove();
     rootElement.insertAdjacentHTML("afterbegin", createForm());
@@ -253,16 +254,16 @@ async function main() {
     let pizzaData = await fetchPizza();
     let allergensData = await fetchAllergens();
 
-    rootElement.insertAdjacentHTML("beforeend", "<button id='basket'>Basket</button>");
-    document.getElementById("basket").addEventListener("click", getBasket);
+    // rootElement.insertAdjacentHTML("beforeend", "<button id='basket'>Basket</button>");
+    document.getElementById("Basket").addEventListener("click", getBasket);
 
     for (let i = 0; i < allergensData.length; i++) {
         let input = addElement("input", allergensData[i].name, i+1);
         let label = addElement("label", allergensData[i].name, i+1);
         // console.log(label);
         // console.log(input);
-        rootElement.insertAdjacentHTML("beforeend", input);
-        rootElement.insertAdjacentHTML("beforeend", label);
+        allergensDiv.insertAdjacentHTML("beforeend", input);
+        allergensDiv.insertAdjacentHTML("beforeend", label);
         
     }
 
