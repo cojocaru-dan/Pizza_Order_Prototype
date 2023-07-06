@@ -1,8 +1,6 @@
 const rootElement = document.getElementById("root");
 const allergensDiv = document.querySelector(".allergens");
 const cards = document.querySelector(".cards");
-const prevButton = document.querySelector("#prev");
-const nextButton = document.querySelector("#next");
 
 let localPizzaData = [];
 let checkedAllergens = [];
@@ -70,9 +68,11 @@ function pizzaDiv({id, image, name, ingredients, price, allergens}) {
                     ${name}
                 </div>
                 <div class="card-body">
+                    <p>Ingredients: </p>
                     ${ingredientsDD}
-                    Price: ${price}
-                    Allergens: ${allergensDD}
+                    <p>Price:  ${price}</p>
+                    <p>Allergens: </p>
+                    ${allergensDD}
                 </div>
                 <div class="card-footer">
                     <input type="number" placeholder="amount" id=amount-${id}>
@@ -179,7 +179,7 @@ function addToOrder(event){
     // }
 
     document.querySelector("form")?.remove();
-    rootElement.insertAdjacentHTML("afterbegin", createForm());
+    document.querySelector("nav.navbar").insertAdjacentHTML("afterend", createForm());
     document.querySelector("form").addEventListener("submit", handleSubmit);
 
 }
@@ -229,24 +229,24 @@ function createForm() {
     console.log(orderedPizzas);
 
     return `<form>
-                <h2>Pizzas:</h2>
+                <h2>Pizzas: </h2>
                 ${orderedPizzas.map(pizza => 
-                    `<p>${pizza.pizzaName}</p>
-                     <p>${pizza.pizzaAmount}</p>`)}
+                        `<h3>${pizza.pizzaName} x${pizza.pizzaAmount}</h3>`
+                    ).join("\n\n")}
                 <label>Name:
-                    <input type="text" required>
+                    <input type="text" id="nameInp" required>
                 </label>
                 <br><br>
                 <label>Email:
-                    <input type="email" required>
+                    <input type="email" id="emailInp" required>
                 </label>
                 <br><br>
                 <label>City:
-                    <input type="text" required>
+                    <input type="text" id="cityInp" required>
                 </label>
                 <br><br>
                 <label>Street:
-                    <input type="text" required>
+                    <input type="text" id="streetInp" required>
                 </label>
                 <br><br>
                 <button>Submit</button>

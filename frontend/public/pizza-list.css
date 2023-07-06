@@ -12,9 +12,9 @@ html {
 
 body {
   margin: 0px;
-  min-height: 100%;
+  /* min-height: 100%; */
   width: 100%;
-  background: url("../images/background1.jpg") no-repeat local;
+  background: url("../images/background1.jpg") repeat local;
   background-size: cover;
 }
 
@@ -37,7 +37,7 @@ body {
   height: 80px;
   justify-content: center;
   gap: 150px;
-  background-color: black;
+  background-color:hsla(92, 66%, 24%, 0.882);
 }
 
 .allergens {
@@ -46,7 +46,7 @@ body {
   height: 50px;
   justify-content: center;
   gap: 20px;
-  background: hsla(240, 42%, 36%, 0.529);
+  background: hsla(92, 87%, 57%, 0.655);
   margin-top: 60px;
   color: white;
   font-weight: 300;
@@ -68,7 +68,7 @@ body {
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 3fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 3fr));
   gap: 1rem;
   align-items: flex-start;
 }
@@ -80,7 +80,8 @@ body {
   border-radius: 0.25rem;
   overflow: hidden;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
-    min-height: 1fr;
+  /* min-height: 1fr; */
+  align-self: normal;
 }
 
 .card-header {
@@ -150,5 +151,36 @@ body {
 }
 
 form {
-    background-color: pink;
+  width: 300px;
+  background-color: hsla(92, 87%, 57%, 0.655);
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+input#nameInp {
+  margin-left: 10px;
+}
+
+input#emailInp {
+  margin-left: 14px;
+}
+
+input#cityInp {
+  margin-left: 26px;
+}
+
+input#streetInp {
+  margin-left: 9px;
+}
+
+form > button {
+  display: block;
+  margin: 0 auto;
+  background-color: hsla(66, 88%, 51%, 0.788);
+  border-radius: 10%;
+  width: 100px;
+  height: 40px;
+  font-size: 25px;
+  text-align: center;
 }
