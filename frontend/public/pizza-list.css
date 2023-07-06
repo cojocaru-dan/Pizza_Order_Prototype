@@ -18,17 +18,33 @@ body {
   background-size: cover;
 }
 
-#Home,
-#Menu,
+#Home, #Menu {
+  width: 120px;
+  height: 80%;
+  border-radius: 10px;
+  font-size: x-large;
+  background-color: lightblue;
+  margin-top: 7px;
+}
+
 #Basket {
-  width: 200px;
-  height: 100%;
+  width: 120px;
+  height: 80%;
+  border-radius: 10px;
+  font-size: x-large;
+  background-color: lightblue;
+  margin-top: 7px;
+}
+
+#Home > a, #Menu > a {
+  color: black;
 }
 
 #Basket > a > img {
-  width: 80px;
-  height: 70px;
+  width: 50px;
+  height: 40px;
   object-fit: contain;
+  margin-top: 7px;
 }
 
 .navbar {
@@ -38,6 +54,10 @@ body {
   justify-content: center;
   gap: 150px;
   background-color:hsla(92, 66%, 24%, 0.882);
+}
+
+.navbar button {
+  color:#777
 }
 
 .allergens {
@@ -151,26 +171,38 @@ body {
 }
 
 form {
-  width: 300px;
+  width: 330px;
   background-color: hsla(92, 87%, 57%, 0.655);
   justify-content: center;
   align-items: center;
   color: white;
+  padding-bottom: 7px;
+}
+form > h2 {
+  text-align: center;
+}
+
+form > * {
+  padding-left: 5px;
 }
 
 input#nameInp {
+  width: 60%;
   margin-left: 10px;
 }
 
 input#emailInp {
+  width: 60%;
   margin-left: 14px;
 }
 
 input#cityInp {
+  width: 60%;
   margin-left: 26px;
 }
 
 input#streetInp {
+  width: 60%;
   margin-left: 9px;
 }
 

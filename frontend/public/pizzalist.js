@@ -229,9 +229,9 @@ function createForm() {
     console.log(orderedPizzas);
 
     return `<form>
-                <h2>Pizzas: </h2>
+                <h2>Pizzas </h2>
                 ${orderedPizzas.map(pizza => 
-                        `<h3>${pizza.pizzaName} x${pizza.pizzaAmount}</h3>`
+                        `<h3>~ ${pizza.pizzaName} x${pizza.pizzaAmount}</h3>`
                     ).join("\n\n")}
                 <label>Name:
                     <input type="text" id="nameInp" required>
